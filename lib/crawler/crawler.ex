@@ -16,17 +16,15 @@ defmodule Crawler do
         fn item ->
           item_info = item["item_basic"]
           item_info = Map.put(item_info, "detail_url", get_detail_url(item_info))
-          image = item_info["image"]
-
           # price = String.slice(Integer.to_string(item_info["price"]), 0..-6)
-
           # price_before_discount = String.slice(Integer.to_string(item_info["price_before_discount"]), 0..-6)
 
 
 
           %{
             item_info |
-            "image" => "https://cf.shopee.vn/file/"<>image,
+            "price" => div(item_info["price"], 1000),
+            "price_before_discount" => div(item_info["price_before_discount"], 1000)
           }
         end)
 
